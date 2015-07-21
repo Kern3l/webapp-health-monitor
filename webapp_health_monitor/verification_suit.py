@@ -1,3 +1,4 @@
+import logging
 import traceback
 import sys
 from webapp_health_monitor.actions import get_actions
@@ -18,6 +19,7 @@ class VerificationSuit(object):
             except VerificationFailure as e:
                 results.append(VerificatorResultFailure(verificator, e))
             except Exception:
+                logging.exception("Exception ocurred during verification suit run.")
                 type, value, traceback = sys.exc_info()
                 results.append(VerificatorResultError(
                     verificator, type, value, traceback))
